@@ -1,0 +1,110 @@
+<?php  
+$buttonTitle = $this->__('Add to Cart'); 
+$onClick =  'QuickOrderSubmit();';
+$form_label = Mage::getStoreConfig('magemarketplace_quickorder/general/form_label');
+$totalInput = Mage::getStoreConfig('magemarketplace_quickorder/general/input_limit');
+$lightBox = Mage::getStoreConfig('magemarketplace_quickorder/general/popup_style');
+?>
+<script>var totalInput = '<?php echo $totalInput; ?>';</script>
+<script src="<?php echo $this->getSkinUrl('quickorder/js/quickorder.js'); ?>"> </script>
+<?php
+
+$class = ($lightBox == '2')?'quickorder_wrapper_lightbox':'quickorder_wrapper';
+$enabled = Mage::getStoreConfig('magemarketplace_quickorder/general/enabled');
+
+if($enabled == 1)
+{
+?>
+ <div class="top-container">
+  <?php if($lightBox == '2' ) { ?>
+  <script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery(".quickorder_box").colorbox({
+			inline:true, html:true, width:"50%",
+			onComplete:function(){
+				var height = jQuery("#quickorder_box_lightbox").height() + 60;
+				jQuery("#cboxContent").height(height);
+				
+				var top = parseInt(jQuery("#colorbox").css('top')) - 85;
+				jQuery("#colorbox").css('top',top);
+				
+			},
+ 			});
+ 		jQuery('.sku').blur(function(){
+			if(productLoaded){
+			var nb = jQuery("#quickorder_box_lightbox").height() + 60;
+			jQuery("#cboxContent").height(nb);
+			}
+		});
+		jQuery("#add_row").click(function(){
+			var height = jQuery("#quickorder_box_lightbox").height() + 60;
+			jQuery("#cboxContent").height(height);
+		});	
+ 	});
+</script>
+  <?php } ?>
+<div class="<?php echo $class;?>">
+ <?php if($lightBox == '2' ) { ?>
+ 	<a href="#quickorder_box_lightbox" class="quickorder_box">
+			<span>Quick Order</span>
+		</a>
+  <?php } else {?>
+  	<a href="javascript:;" id="quickorder_link">
+			<span>Quick Order</span>
+		</a>
+   <?php } ?>
+ <div  style="display: none;" <?php if($lightBox == '1' ) echo 'id="quickorder_box"';?>>
+ <?php if($lightBox == '2' ) echo '<div id="quickorder_box_lightbox" style="background:#fff;"><h2>'.$form_label.'</h2> '; ?>
+ 			
+			<form action="" name="quickorderFrm" id="quickorderFrm" method="post">
+				<table width="100%" class="items_table" cellpadding="0" cellspacing="0">
+					<tr>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td class="a-right"><?php if($lightBox == '1' ) {?><a href="javascript:;" id="close_popup">CLOSE X</a><?php } ?></td>
+				  </tr>
+					<tr>
+						<td width="20%"><span class="text2">SKU #</span></td>
+						<td width="8%"><span class="text2">QTY</span></td>
+						<td width="1%">&nbsp;</td>
+						<td width="60%">&nbsp;</td>
+					</tr>
+				<?php for($i=1; $i<=$totalInput;$i++):?>	
+					<tr id="itemrow_<?php echo $i; ?>">
+						<td class="sku_field"><input type="text" id="sku_<?php echo $i; ?>" class="input-text sku" title="sku_<?php echo $i; ?>" name="product[<?php echo $i; ?>][sku]"/></td>
+						<td><input type="text" id="qty_<?php echo $i; ?>" class="input-text qty" name="product[<?php echo $i; ?>][qty]">
+				<input type="hidden" name="product[<?php echo $i; ?>][product]" id="id_<?php echo $i; ?>" value="" />						</td>
+						<td id="options_<?php echo $i; ?>" style="width:50px;">&nbsp;</td>
+						<td class="a-left"><a href="javascript:;" class="remove" id="remove_<?php echo $i; ?>">x Remove</a></td>
+					</tr>
+				<?php endfor; ?>
+				<tr id="lastrow"></tr>
+				</table>
+				<table width="100%">
+				<tr>
+					<td><a href="javascript:;" id="add_row">+ Add New Row</a></td>
+					<td></td>
+				</tr>	
+				</table>
+				<table width="100%" class="table_action">
+					<tr>
+						<td width="15%" align="right">
+<span id="loader" style="float:left"></span>&nbsp;&nbsp;				
+						
+ <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart f-right" onclick="<?php echo $onClick; ?>"><span><span><?php echo $buttonTitle ?></span></span></button>					
+
+						</td>
+					</tr>
+				</table>
+			<input type="hidden" id="actionUrl" value="<?php echo $this->getUrl('quickorder/index'); ?>"/>
+			</form>	
+  <?php if($lightBox == '2' ) echo '</div>'; ?>
+ </div>
+
+ <div class="clearBoth"></div> <!-- Quick order wrapper ends -->
+   
+ <!-- Main Div-->
+</div>
+</div>
+<?php } ?>

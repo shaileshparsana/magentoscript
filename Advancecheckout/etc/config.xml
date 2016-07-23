@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Plumtree_Advancecheckout>
+            <version>1.3.0</version>
+        </Plumtree_Advancecheckout>
+    </modules>
+	
+    <frontend>
+		<routers>
+			<checkout>
+				<args>
+					<modules>
+					<Plumtree_Advancecheckout before="Mage_Checkout">Plumtree_Advancecheckout</Plumtree_Advancecheckout>
+					</modules>
+				</args>
+			</checkout>
+			 
+        </routers>
+    </frontend>
+</config>

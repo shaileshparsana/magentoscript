@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Plumtree_Advancecustomer>
+            <version>1.3.0</version>
+        </Plumtree_Advancecustomer>
+    </modules>
+    <frontend>
+		<routers>
+			<customer>
+				<args>
+					<modules>
+					<Plumtree_Advancecustomer before="Mage_Customer">Plumtree_Advancecustomer</Plumtree_Advancecustomer>
+					</modules>
+				</args>
+			</customer>
+			 
+        </routers>
+    </frontend>
+	 <global>
+          <rewrite> 
+            <Plumtree_Advancecustomer_account>
+              <from><![CDATA[#^/account/#]]></from>
+              <to>/customer/account/</to>
+            </Plumtree_Advancecustomer_account>
+		  </rewrite>
+        </global>
+</config>

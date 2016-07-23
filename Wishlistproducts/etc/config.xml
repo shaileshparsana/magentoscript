@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Plumtree_Wishlistproducts>
+            <version>0.1.0</version>
+        </Plumtree_Wishlistproducts>
+    </modules>
+    
+       
+    <global>
+ 		 <events>
+ 		   <customer_register_success>
+                <observers>
+                    <plumtree_wishlistproducts_model_observer>
+						<type>model</type>
+						<class>Plumtree_Wishlistproducts_Model_Observer</class>
+                        <method>addwishlist</method>
+                    </plumtree_wishlistproducts_model_observer>
+                </observers>
+           </customer_register_success>
+		 </events>
+      </global>
+	
+</config>

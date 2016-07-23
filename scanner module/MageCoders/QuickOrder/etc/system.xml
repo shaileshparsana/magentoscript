@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+		 <magecoders translate="label" module="quickorder">
+			 <label>MageCoders Extensions</label>
+			 <sort_order>150</sort_order>
+		 </magecoders>
+	 </tabs>
+	<sections>
+		<quickorder translate="label" module="quickorder">
+			<label>Quick Order</label>
+			<tab>magecoders</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>999</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<settings translate="label">
+				<label>Quick Order Settings</label>
+				<frontend_type>text</frontend_type>
+				 <comment><![CDATA[<a href="http://www.magecoders.com/contacts" target="_blank">Need Support ? Kindly contact us</a>]]></comment>
+				<sort_order>1</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+					<fields>
+						<active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>	
+						<form_style translate="label">
+                            <label>Frontend Display</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>quickorder/system_source_styles</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </form_style>
+						
+						<number_result translate="label, comment">
+							<label>Auto-Suggest Products Limit</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</number_result>																		
+						<visibility_filter translate="label, comment">
+							<label>Visibility Filter of products</label>
+							<frontend_type>select</frontend_type>
+                            <source_model>quickorder/system_source_filter</source_model>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</visibility_filter>	
+						<default_count translate="label, comment">
+							<label>Number of inputbox in quickorder</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</default_count>	
+						<sort_column translate="label, comment">
+							<label>Products Suggestion Sort By</label>
+							<frontend_type>select</frontend_type>
+							<source_model>quickorder/system_source_sort</source_model>									                            <sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</sort_column>																												
+						<default_icon translate="label, comment">
+							<label>Frontend icon src</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Related to theme skin folder e.g. images/myicon.png, Leave blank to use default icon</comment>
+						</default_icon>							
+					</fields>
+				</settings>
+			</groups>
+		</quickorder>
+	</sections>
+</config>

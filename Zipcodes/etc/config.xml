@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Plumtree_Zipcodes>
+            <version>0.1.0</version>
+        </Plumtree_Zipcodes>
+    </modules>
+    <frontend>
+        <routers>
+            <zipcodes>
+                <use>standard</use>
+                <args>
+                    <module>Plumtree_Zipcodes</module>
+                    <frontName>zipcodes</frontName>
+                </args>
+            </zipcodes>
+			
+		<!--Override Address Controller-->	
+			<customer>
+				<args>
+					<modules>
+						<Plumtree_Zipcodes before="Mage_Customer">Plumtree_Zipcodes</Plumtree_Zipcodes>
+					</modules>
+				</args>
+	  		</customer>
+		<!--Override Address Controller-->
+			
+        </routers>
+        <layout>
+            <updates>
+                <zipcodes>
+                    <file>zipcodes.xml</file>
+                </zipcodes>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+			<zipcodes>
+				<use>admin</use>
+				<args>
+					<module>Plumtree_Zipcodes</module>
+					<frontName>zipcodes</frontName>
+				</args>
+			</zipcodes>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<zipcodes module="zipcodes">
+				<title>Zipcodes</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<items module="zipcodes">
+						<title>Manage Items</title>
+						<sort_order>0</sort_order>
+						<action>zipcodes/adminhtml_zipcodes</action>
+					</items>
+				</children>
+			</zipcodes>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<!--<Plumtree_Zipcodes>
+							<title>Zipcodes Module</title>
+							<sort_order>10</sort_order>
+						</Plumtree_Zipcodes>-->
+						<system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <zipcode_list>
+                                            <title>Zipcode List</title>		
+                                        </zipcode_list>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<zipcodes>
+					<file>zipcodes.xml</file>
+				</zipcodes>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <zipcodes>
+                <class>Plumtree_Zipcodes_Model</class>
+                <resourceModel>zipcodes_mysql4</resourceModel>
+            </zipcodes>
+            <zipcodes_mysql4>
+                <class>Plumtree_Zipcodes_Model_Mysql4</class>
+                <entities>
+                    <zipcodes>
+                        <table>zipcodes</table>
+                    </zipcodes>
+                </entities>
+            </zipcodes_mysql4>
+        </models>
+        <resources>
+            <zipcodes_setup>
+                <setup>
+                    <module>Plumtree_Zipcodes</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </zipcodes_setup>
+            <zipcodes_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </zipcodes_write>
+            <zipcodes_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </zipcodes_read>
+        </resources>
+        <blocks>
+            <zipcodes>
+                <class>Plumtree_Zipcodes_Block</class>
+            </zipcodes>
+        </blocks>
+		
+        <helpers>
+            <zipcodes>
+                <class>Plumtree_Zipcodes_Helper</class>
+            </zipcodes>
+        </helpers>
+    </global>
+</config>

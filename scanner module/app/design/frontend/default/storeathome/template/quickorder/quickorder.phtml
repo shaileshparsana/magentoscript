@@ -1,0 +1,376 @@
+<style type="text/css">
+.scanner-laser {
+	position: absolute;
+	margin: 0px;
+	height: 30px;
+	width: 30px;
+}
+.laser-leftTop {
+	top: 40px;
+	left: 15px;
+	border-top: solid red 5px;
+	border-left: solid red 5px;
+}
+.laser-leftBottom {
+	bottom: 0;
+	left:15px;
+	border-bottom: solid red 5px;
+	border-left: solid red 5px;
+}
+.laser-rightTop {
+	top: 40px;
+	right: 15px;
+	border-top: solid red 5px;
+	border-right: solid red 5px;
+}
+.laser-rightBottom {
+	bottom: 0;
+	right: 15px;
+	border-bottom: solid red 5px;
+	border-right: solid red 5px;
+}
+@media screen and (min-width:480px) and (max-width:767px){
+.cameradisplay #camerapart{height:230px;width:265px;}
+}
+
+@media screen and (max-width: 479px) {
+.cameradisplay #camerapart{height:180px;width:200px;}
+}
+@media screen and (max-width: 767px) {
+.cameradisplay{
+	float:left;
+	width:100%;
+}
+.cameradisplay #camerapart{
+	display: block;
+    margin: 0 auto;
+    position: relative;
+	top:20px;
+}	 
+#camerapart canvas {
+width:100% !important;
+height:100% !important;
+}
+ .laser-leftTop {
+ left: 0;
+ top:0;
+}
+ .laser-leftBottom {
+ left:0;
+}
+ .laser-rightTop {
+ right: 0;
+ top:0;
+}
+ .laser-rightBottom {
+ right: 0;
+}
+}
+</style>
+<?php if(Mage::getStoreConfig('quickorder/settings/active')):?>
+<?php $inputCount = Mage::getStoreConfig('quickorder/settings/default_count');
+      $count = ($inputCount>0)?$inputCount:4;
+	  $icon = Mage::getStoreConfig('quickorder/settings/default_icon');	
+	  $style = Mage::getStoreConfig('quickorder/settings/form_style');	
+?>
+<?php if(Mage::app()->getStore()->isCurrentlySecure()): ?>
+<script type="text/javascript" src="<?php echo  Mage::getBaseUrl($type = 'link', $secure = true);?>skin/frontend/default/storeathome/js/FormRepo.js"></script>
+<?php else: ?>
+<script type="text/javascript" src="<?php echo $this->getBaseUrl();?>skin/frontend/default/storeathome/js/FormRepo.js"></script>
+<?php endif; ?>
+<?php if($style=='collapse'):?>
+
+<div class="quickorder_wrapper"> <a href="javascript:;" id="quickorder_link">
+  <?php if($icon!=''):?>
+  <img src="<?php echo $this->getSkinUrl($icon); ?>" border="0" width="250" height="55" />
+  <?php else:?>
+  <span>Quick Order</span>
+  <?php endif; ?>
+  </a>
+  <div id="quickorder_box" style="display:none;"> 
+  <form  id="quickorderFrm" name="quickorderFrm" onSubmit="return false;" method="post">
+    <table width="100%" cellpadding="0" cellspacing="0" class="itemsBox">
+      <tr class="thead-tr">
+        <td width="35%" class="thead-qosku"><strong>Type Product Name/Sku #/UPC</strong></td>
+        <td width="5%" align="center" class="thead-qoqty"><strong>Qty</strong></td>
+        <td width="15%"  class="iphonescan thead-iphonescan">&nbsp;</td>
+        <td width="29%" class="thead-textarea">&nbsp;</td>
+        <td width="16%"  class="thead-remove">&nbsp;</td>
+      </tr>
+      <?php for($i=0; $i<$count; $i++):?>
+      <tr id="row_<?php echo $i;?>">
+        <td class="qosku itemsku_<?php echo $i;?>"><span class="">Type Product Name/Sku #/UPC</span>
+          <input type="text" id="sku_<?php echo $i;?>" name="product[<?php echo $i;?>][sku]" title="Brand Name works too" alt="sku_<?php echo $i;?>" class="input-text sku" value="0" onClick="this.setSelectionRange(0, this.value.length)" ></td>
+        <td class="qoqty itemqty_<?php echo $i;?>"><span class="">Qty</span>
+          <input type="text" id="qty_<?php echo $i; ?>" name="product[<?php echo $i;?>][qty]" class="input-text qty"></td>
+        <!-- custom code to add barcode functionality  -->
+        <td id="itemscan_<?php echo $i;?>" class="iphonescan hideiphonescan" style="display:none"><a href="javascript:void(0);"  data-uri-app="pic2shop://" data-url-app-not-found="https://itunes.apple.com/in/app/pic2shop-barcode-scanner-qr/id308740640?mt=8" class="iphoneplay" id="sku_<?php echo $i;?>" OnClick="goforscan('<?php echo  $_SERVER["HTTP_HOST"].strtok($_SERVER['REQUEST_URI'], '?'). "?code%3dscanbarcode%26scanid%3dsku_".$i ?>',this);" >Scan</a> <p class="suggested-text-scan-<?php echo $i;?> suggested-text-scan" style="text-align: center;font-weight: 600;margin-top: 10px;position: relative;bottom: 0;color:#f00;display: none;">Tap the picture to add.</p></td>
+        
+        <td id="itemscan_<?php echo $i;?>" class="andriodscan" style="display:none"><a href="#" class="play" id="sku_<?php echo $i;?>" >Scan</a>
+       <p class="suggested-text-scan-<?php echo $i;?> suggested-text-scan" style="text-align: center;font-weight: 600;margin-top: 10px;position: relative;bottom: 0;color:#f00;display: none;">Tap the picture to add.</p>
+        </td>
+        
+        
+        <!-- custom code end here -->
+        <td id="itemdata_<?php echo $i;?>" class="qodata"><textarea class="product_name_title" name="pname_data_<?php echo $i;?>" id="pname_data_<?php echo $i;?>" readonly="readonly"></textarea></td>
+		
+
+        <td class="a-right qoremove"><a href="javascript:;" class="remove" id="remove_<?php echo $i;?>">x Remove</a></td>
+      </tr>
+      <?php endfor; ?>
+      <tr id="lastRow">
+        <td></td>
+      </tr>
+    </table>
+    <table width="100%">
+      <tr>
+        <td><a href="javascript:;" id="add_item">+ Add Item</a></td>
+        <td></td>
+      </tr>
+    </table>
+    <table width="100%">
+      <tr>
+        <td colspan="2" class="f-left"><span id="loader"></span></td>
+        <td colspan="2" class="a-right"><button id="add_to_cart" onclick="submitQuickorderForm();" class="button btn-cart" title="Add to Cart" type="button"><span><span>Add to Cart</span></span></button></td>
+      </tr>
+      <tr>
+        <td><a href="javascript:;" id="quickorder_close">x Close</a></td>
+        <td></td>
+      </tr>
+    </table>
+    </div>
+    <div class="Clear"></div>
+    <?php if(Mage::app()->getStore()->isCurrentlySecure()): ?>
+    <input type="hidden" name="quickorderAction" id="quickorderAction" value="<?php echo $this->getUrl('quickorder/index',array('_secure'=>true)); ?>"/>
+    <?php else: ?>
+	 <input type="hidden" name="quickorderAction" id="quickorderAction" value="<?php echo $this->getUrl('quickorder/index'); ?>"/>   <?php endif; ?>
+    <pre id="output">
+</pre>
+  </form>
+</div>
+<?php endif; ?>
+<?php endif; ?>
+<script type="text/javascript">
+
+//function loadAppByUri(appUri,urlNotFoundApp,urlFoundApp) {
+//    
+//  var goToAppPage = null;
+//  var clearEvents;
+//  var setEvents;
+//  var appWasFound;
+//  var appWasNotFound;
+//  var waiting = true;
+//    
+//  appWasNotFound = function( event ){
+//      if( !waiting ) {
+//          return false;
+//      }
+//      waiting = false;
+//      if( urlNotFoundApp != null ) {
+//          document.location = urlNotFoundApp;
+//      }
+//  };
+//    
+//  goToAppPage = setTimeout(
+//    appWasNotFound, 
+//    3000
+//  );
+//}
+
+
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
+if( isMobile.any() )  {
+
+
+//jQuery.getScript("<?php echo $this->getSkinUrl(); ?>js/WebCodeCam.js");
+
+
+jQuery.extend({
+  getUrlVars: function(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  },
+  getUrlVar: function(name){
+    return jQuery.getUrlVars()[name];
+  }
+});
+
+
+var $form = jQuery('#quickorderFrm')
+		, $output = jQuery('#quickorderFrm #output')
+		, repo = new FormRepo('restclient3')
+		;	
+	
+	
+jQuery(document).ready(function() {
+
+if( isMobile.iOS() )  {
+	jQuery('.hideiphonescan').show();
+	jQuery('.andriodscan').attr('style','display:none !important');
+		
+
+}
+
+ if( isMobile.Android() )
+ {
+ 		jQuery('.hideiphonescan').attr('style','display:none !important');;
+		jQuery('.andriodscan').show();
+
+ }
+ 
+ 
+ if(jQuery(".cameraselection option").length>1)
+ {
+jQuery(".cameraselection option:eq(1)").attr("selected", "selected");
+  var rearcamera=jQuery(".cameraselection option:eq(1)").val();
+}
+		// get the last submitted values back
+			if(jQuery.getUrlVar('code')=='scanbarcode')
+			{
+					var scanid =jQuery.getUrlVar('scanid');
+					var scanresult = jQuery.getUrlVar('ean').replace('#', '');
+					repo.restore($form/*, $form.attr('id')*/ );
+					jQuery("#quickorder_box").show();
+					jQuery('input[alt="'+scanid+'"]').val(scanresult.substring(1));
+					jQuery('input[alt="'+scanid+'"]').focus();
+					
+					var lastid=scanid.split('_');
+					jQuery("#quickorder_box .suggested-text-scan-"+lastid[1]).show();  
+					jQuery('input[alt="'+scanid+'"]').keydown();
+					jQuery('input[alt="'+scanid+'"]').focusout();
+					
+					
+			}
+});
+function goforscan(scanurl,currrent)
+{
+
+	repo.preserve($form/*, $form.attr('id')*/ ); // don't necessarily need an identifier
+		if(jQuery.getUrlVar('code')!='scanbarcode')
+			{
+ 		 setTimeout(function() {
+            if( isMobile.iOS() ) 
+				alert("Please install PIC2SHOP App from Apple Store!");
+				//window.location = "https://itunes.apple.com/in/app/pic2shop-barcode-scanner-qr/id308740640?mt=8";
+             }, 3000);
+			 }
+//loadAppByUri(jQuery(currrent).data('uri-app'),jQuery(currrent).data('url-app-not-found'),jQuery(currrent).data('url-app-found'));
+//alert(jQuery(currrent).data('uri-app'));
+if ("https:" == document.location.protocol)
+location.href = "pic2shop://scan?callback=https://"+scanurl;
+else
+location.href = "pic2shop://scan?callback=http://"+scanurl;
+
+}
+
+
+}
+
+</script>
+
+<!-- custom code for android devices -->
+
+
+
+<div class="cameradisplay">
+    <div class="well" id="camerapart"  style="position: relative;display:none">
+    	<canvas width="320" height="240" id="webcodecam-canvas"></canvas>
+        <div class="scanner-laser laser-rightBottom" style="opacity: 0.5;"></div>
+        <div class="scanner-laser laser-rightTop" style="opacity: 0.5;"></div>
+        <div class="scanner-laser laser-leftBottom" style="opacity: 0.5;"></div>
+        <div class="scanner-laser laser-leftTop" style="opacity: 0.5;"></div>
+        <p style="margin: 5px;color: red;font-size: 16px;float:left;">Hold the device steady while scanning.</p>
+    </div>
+</div>
+
+                      
+                        
+<div id="QR-Code" class="container"  style="display:none">
+  <div class="panel panel-primary">
+    
+    
+    <div class="navbar-form navbar-right" style="width: 100%;display:none">
+                        <select class="form-control" id="camera-select"></select>
+                        <div class="form-group">
+                            <input id="image-url" type="text" class="form-control" placeholder="Image url">
+                            <button title="Decode Image" class="btn btn-default btn-sm" id="decode-img" type="button" data-toggle="tooltip"><span class="glyphicon glyphicon-upload"></span></button>
+                            <button title="Image shoot" class="btn btn-info btn-sm disabled" id="grab-img" type="button" data-toggle="tooltip"><span class="glyphicon glyphicon-picture"></span></button>
+                            <button title="Play" class="btn btn-success btn-sm" id="play" type="button" data-toggle="tooltip"><span class="glyphicon glyphicon-play"></span></button>
+                            <button title="Pause" class="btn btn-warning btn-sm" id="pause" type="button" data-toggle="tooltip"><span class="glyphicon glyphicon-pause"></span></button>
+                            <button title="Stop streams" class="btn btn-danger btn-sm" id="stop" type="button" data-toggle="tooltip"><span class="glyphicon glyphicon-stop"></span></button>
+                         </div>
+                    </div>
+    
+    <div class="panel-body">
+      <div class="col-md-6" style="text-align: center;">
+        <div class="well" style="width: 100%;display:none">
+                            <label id="zoom-value" width="100">Zoom: 2</label>
+                            <input id="zoom" onchange="Page.changeZoom();" type="range" min="10" max="30" value="20">
+                            <label id="brightness-value" width="100">Brightness: 0</label>
+                            <input id="brightness" onchange="Page.changeBrightness();" type="range" min="0" max="128" value="0">
+                            <label id="contrast-value" width="100">Contrast: 0</label>
+                            <input id="contrast" onchange="Page.changeContrast();" type="range" min="0" max="64" value="0">
+                            <label id="threshold-value" width="100">Threshold: 0</label>
+                            <input id="threshold" onchange="Page.changeThreshold();" type="range" min="0" max="512" value="0">
+                            <label id="sharpness-value" width="100">Sharpness: off</label>
+                            <input id="sharpness" onchange="Page.changeSharpness();" type="checkbox">
+                            <label id="grayscale-value" width="100">grayscale: off</label>
+                            <input id="grayscale" onchange="Page.changeGrayscale();" type="checkbox">
+                            <br>
+                            <label id="flipVertical-value" width="100">Flip Vertical: off</label>
+                            <input id="flipVertical" onchange="Page.changeVertical();" type="checkbox">
+                            <label id="flipHorizontal-value" width="100">Flip Horizontal: off</label>
+                            <input id="flipHorizontal" onchange="Page.changeHorizontal();" type="checkbox">
+                        </div>
+                        
+                        
+      </div>
+      <div class="col-md-6" style="text-align: center;display:none">
+        <div class="thumbnail" id="result">
+                            <div class="well">
+                                <img width="320" height="240" id="scanned-img" src="">
+                            </div>
+                            <div class="caption">
+                                <h3>Scanned result</h3>
+                                <p id="scanned-QR"></p>
+                            </div>
+                        </div>
+      </div>
+    </div>
+    <div class="panel-footer"> </div>
+  </div>
+</div>
+
+
+		
+            
+<script type="text/javascript" src="<?php echo $this->getSkinUrl(); ?>js/WebCodeCam.js"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl(); ?>js/custombarcode.js"></script>
+

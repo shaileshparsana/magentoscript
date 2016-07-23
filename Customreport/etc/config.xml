@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Plumtree
+ * @package    Plumtree_Customreport
+ * @author     Damian Alberto Pastorini
+ */
+ -->
+<config>
+    <modules>
+        <Plumtree_Customreport>
+            <version>0.1.0</version>
+        </Plumtree_Customreport>
+    </modules>
+    <admin>
+        <routers>
+            <customreport>
+                <use>admin</use>
+                <args>
+                    <module>Plumtree_Customreport</module>
+                    <frontName>customreport</frontName>
+                </args>
+            </customreport>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <report>
+                <children>
+                    <customreport translate="title" module="customreport">
+                        <title>Order Subtotal Report</title>
+                        <action>customreport/adminhtml_customreport</action>
+                    </customreport>
+                </children>
+            </report>
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <report>
+                            <children>
+                                <customreport translate="title" module="customreport">
+                                    <title>Order Subtotal Report</title>
+                                    <action>customreport/adminhtml_customreport</action>
+                                </customreport>
+                            </children>
+                        </report>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <customreport>
+                    <file>customreport.xml</file>
+                </customreport>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>
+        <models>
+            <customreport>
+                <class>Plumtree_Customreport_Model</class>
+                <resourceModel>customreport</resourceModel>
+            </customreport>
+        </models>
+       <resources>
+            <customreport_setup>
+                <setup>
+                    <module>Plumtree_Customreport</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </customreport_setup>
+            <customreport_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </customreport_write>
+            <customreport_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </customreport_read>
+        </resources>
+        <blocks>
+            <customreport>
+                <class>Plumtree_Customreport_Block</class>
+            </customreport>
+        </blocks>
+        <helpers>
+            <customreport>
+                <class>Plumtree_Customreport_Helper</class>
+            </customreport>
+        </helpers>
+    </global>
+</config>

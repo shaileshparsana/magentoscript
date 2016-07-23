@@ -1,0 +1,62 @@
+<?php if(Mage::getStoreConfig('quickorder/settings/active')):?>
+<?php $inputCount = Mage::getStoreConfig('quickorder/settings/default_count');
+      $count = ($inputCount>0)?$inputCount:4;
+	  $icon = Mage::getStoreConfig('quickorder/settings/default_icon');	
+  	  $style = Mage::getStoreConfig('quickorder/settings/form_style');	
+?>
+ 
+<?php if($style != 'cms_page'):?> 
+<ul class="messages"><li class="error-msg"><ul><li><span><?php echo $this->__('Configure Form style to "CMS Page" from Quickorder Configuration.'); ?></span></li></ul></li></ul>
+<?php else:?>
+
+<script type="text/javascript" src="<?php echo $this->getJsUrl('magecoders/configurable.js');?>"></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('magecoders/autosuggest.js');?>"></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('magecoders/quickorder.js');?>"></script>
+
+<div class="quickorder_form">
+	<form  id="quickorderFrm" action="<?php echo $this->getUrl('quickorder/index'); ?>" name="quickorderFrm" method="post">
+		<table width="80%" cellpadding="0" cellspacing="0" class="itemsBox">
+			<tr>
+				<td width="20%"><strong>Name / Sku #</strong></td>
+				<td width="5%"><strong>Qty</strong></td>
+				<td width="41%">&nbsp;</td>
+				<td width="15%">&nbsp;</td>												
+			</tr>
+			<?php for($i=0; $i<$count; $i++):?>
+				<tr id="row_<?php echo $i;?>">
+					<td class="itemsku_<?php echo $i;?>"><input type="text" id="sku_<?php echo $i;?>" name="product[<?php echo $i;?>][sku]" title="sku_<?php echo $i; ?>" class="input-text sku"></td>
+					<td class="itemqty_<?php echo $i;?>">
+					<input type="text" id="qty_<?php echo $i; ?>" name="product[<?php echo $i;?>][qty]" class="input-text qty"></td>
+					<td id="itemdata_<?php echo $i;?>">&nbsp;</td>
+					<td class="a-right"><a href="javascript:;" class="remove" id="remove_<?php echo $i;?>">x Remove</a></td>															
+				</tr>	
+			<?php endfor; ?>
+				<tr id="lastRow">
+					<td></td>
+				</tr>
+			
+			</table>
+			<table width="80%">
+				<tr>
+					<td><a href="javascript:;" id="add_item">+ Add Item</a></td>
+					<td></td>
+				</tr>
+			</table>
+			<table width="80%">
+			<tr>
+				<td colspan="2" class="f-left"><span id="loader"></span></td>
+				<td colspan="2" class="a-right">
+				<button id="add_to_cart" onclick="submitQuickorderForm();" class="button btn-cart" title="Add to Cart" type="button"><span><span>Add to Cart</span></span></button>
+				</td>
+			</tr>
+			
+		    </table>
+	<div class="Clear"></div>
+		<input type="hidden" name="quickorderAction" id="quickorderAction" value="<?php echo $this->getUrl('quickorder/index'); ?>"/>
+
+	</form>
+</div> 
+
+<?php endif; ?>
+
+<?php endif; ?>

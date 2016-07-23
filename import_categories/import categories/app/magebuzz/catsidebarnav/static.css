@@ -1,0 +1,32 @@
+/********Css For Category Sidebar Navigation ************/
+.block-category-nav{}
+.block-category-nav .block-content{padding:10px;}
+#category-sidebar-nav{}
+#category-sidebar-nav li
+{
+}
+#category-sidebar-nav li.last{border:0 none;}
+#category-sidebar-nav li a{font-size:14px; font-weight:normal; color:#4a4a4a; text-decoration:none;}
+#category-sidebar-nav li a:hover{color:#f7931d;/*  text-decoration:underline; */}
+/* Level 0 */
+#category-sidebar-nav li.level-top a.level-top{ font-weight:bold;}
+#category-sidebar-nav li ul.level0{padding-left:10px;}
+#category-sidebar-nav li ul.level0 li
+{	
+}
+#category-sidebar-nav li ul.level0 li a
+{	color:#4a4a4a; border-radius:30px; padding:6px 20px; margin:5px;
+}
+#category-sidebar-nav li ul.level0 li a:hover
+{	background:#81c341;	
+}
+#category-sidebar-nav li ul.level0 li a:hover
+{	color:#FFF;
+}
+#category-sidebar-nav li ul.level0 li a::before
+{	content: "\f105"; font-size:14px; font-family:FontAwesome; display:inline-block;
+}
+#category-sidebar-nav li ul.level0 li.last{border:0 none;}
+/* Level 1 */
+#category-sidebar-nav li ul li ul{padding-left:10px;}
+#category-sidebar-nav li ul li ul li a{color:#5a5a5a;}

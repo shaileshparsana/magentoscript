@@ -1,0 +1,91 @@
+ magento code snippets
+https://gist.github.com/arosenhagen/2397824
+
+
+call static block into phtml
+
+  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('newsletter_title_lines')->toHtml() ?>
+
+
+call phtml into static block
+{{block type="core/template" template="templateFolder/your_template.phtml"}}
+
+
+
+call block into cms page
+{{block type="cms/block" block_id="linksforcms"}}
+
+
+call block function of another extenasion:
+
+ $cpBlock = $this->getLayout()->getBlockSingleton('OrganicInternet_SimpleConfigurableProducts_Checkout_Block_Cart_Item_Renderer');
+  
+
+
+
+call phtml using block in the phtml
+
+  <?php print $this->getLayout()->createBlock("catalog/product_view_type_configurable")->setTemplate("catalog/product/view/type/options/configurable.phtml")->toHtml(); ?>
+
+
+
+call current theme images into frontend  in wordpres
+<?php echo bloginfo('template_url');?>/images/logo.png
+
+
+to open backend of magento in chrome D:\wamp\www\magento-1.7.0.0\magento\app\code\core\Mage\Core\Model\Session\Abstract\varien.php
+comment from 85 to 93 lines
+
+
+
+
+to apply free shipping on specific states without creating rule......
+D:\ptws\tonerprice\app\code\local\Mage\Shipping\Model\Carrier\Abstract.php
+in this changes in getMethodPrice() function..
+
+
+
+to display the images which are on admin categories description or any custom field in admin
+echo  $this->helper('cms')->getBlockTemplateProcessor()->filter( $actualCategory->getBottomContent());
+
+
+to add field in admin 
+http://www.excellencemagentoblog.com/magento-admin-form-field
+
+
+
+
+full page cache message problem when same page redirection 
+ echo $this->getMessagesBlock()->setEscapeMessageFlag(true)->toHtml() 
+
+
+
+ban the full page cache .
+	$cache = Mage::app()->getCacheInstance();
+ 	$cache->banUse('full_page'); 
+enable the cache
+	 Mage::app()->useCache(
+
+
+
+
+
+);  
+
+
+
+full cache problem for messages in product detail page
+
+
+<?php echo $this->getMessagesBlock()->setEscapeMessageFlag(true)->toHtml() ?>
+
+
+
+for customer logout using model
+
+Mage::getModel('customer/session')->logout();
+
+
+		
+
+

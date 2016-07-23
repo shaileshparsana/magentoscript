@@ -1,0 +1,14 @@
+<layout version="0.1.0">
+    <default>
+		<reference name="head">
+             <!-- <action method="addJs" ifconfig="quickorder/settings/active"><script>magecoders/jquery.js</script></action>			-->  
+              <action method="addJs" ifconfig="quickorder/settings/active"><script>magecoders/autosuggest.js</script></action>
+              <action method="addJs" ifconfig="quickorder/settings/active"><script>magecoders/quickorder.js</script></action>
+              <action method="addItem" ifconfig="quickorder/settings/active"><type>skin_css</type><name>css/quickorder.css</name></action>
+		</reference>
+	
+		<reference name="top.container">
+			<block type="quickorder/form" name="quickorder" template="quickorder/quickorder.phtml"/>
+		</reference>
+	</default>
+</layout>

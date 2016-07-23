@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Plumtree_Picklist>
+      <version>0.1.0</version>
+    </Plumtree_Picklist>
+  </modules>
+  <frontend>
+    <routers>
+      <picklist>
+        <use>standard</use>
+          <args>
+            <module>Plumtree_Picklist</module>
+            <frontName>picklist</frontName>
+          </args>
+      </picklist>
+    </routers>
+		<layout>
+		  <updates>
+			<picklist>
+			  <file>picklist.xml</file>
+			</picklist>
+		  </updates>
+		</layout>
+  </frontend>
+  <global>
+    <helpers>
+      <picklist>
+        <class>Plumtree_Picklist_Helper</class>
+      </picklist>
+    </helpers>
+	<blocks>
+	  <picklist>
+		<class>Plumtree_Picklist_Block</class>
+	  </picklist>
+	</blocks>
+  </global>
+  
+   <admin>
+	<routers>
+	  <picklist>
+	    <use>admin</use>
+		<args>
+		  <module>Plumtree_Picklist</module>
+		  <frontName>admin_picklist</frontName>
+		</args>
+	  </picklist>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <sales module="picklist">
+	
+		<children>
+		  <picklistbackend module="picklist">
+			<title>Pick List</title>
+			<sort_order>20</sort_order>
+			<action>admin_picklist/adminhtml_picklistbackend/print</action>
+		  </picklistbackend>
+		</children>
+	  </sales>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children> 
+			<picklist translate="title" module="picklist">
+			  <title>Pick List</title>
+			  <sort_order>10</sort_order>
+			  <children>
+		  <picklistbackend translate="title">
+			<title>Pick List</title>
+		  </picklistbackend>
+			  </children>
+			</picklist>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<picklist>
+		  <file>picklist.xml</file>
+		</picklist>
+	  </updates>
+	</layout>
+  </adminhtml>
+  
+</config> 

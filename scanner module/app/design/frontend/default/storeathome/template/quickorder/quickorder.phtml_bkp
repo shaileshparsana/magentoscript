@@ -1,0 +1,61 @@
+<?php if(Mage::getStoreConfig('quickorder/settings/active')):?>
+<?php $inputCount = Mage::getStoreConfig('quickorder/settings/default_count');
+      $count = ($inputCount>0)?$inputCount:4;
+	  $icon = Mage::getStoreConfig('quickorder/settings/default_icon');	
+	  
+	  $style = Mage::getStoreConfig('quickorder/settings/form_style');	
+?>
+ 
+<?php if($style=='collapse'):?>
+<div class="quickorder_wrapper">
+	<a href="javascript:;" id="quickorder_link">
+	<?php if($icon!=''):?>
+		<img src="<?php echo $this->getSkinUrl($icon); ?>" border="0" width="250" height="55" />
+	<?php else:?>
+		<span>Quick Order</span>
+	<?php endif; ?>
+	</a>
+	<div id="quickorder_box" style="display:none;"> 
+	<form  id="quickorderFrm" name="quickorderFrm" onSubmit="return false;" method="post">
+		<table width="100%" cellpadding="0" cellspacing="0" class="itemsBox">
+			<tr>
+				<td width="20%"><strong>Name / Sku #</strong></td>
+				<td width="5%"><strong>Qty</strong></td>
+				<td width="41%">&nbsp;</td>
+				<td width="15%">&nbsp;</td>												
+			</tr>
+			<?php for($i=0; $i<$count; $i++):?>
+				<tr id="row_<?php echo $i;?>">
+					<td class="itemsku_<?php echo $i;?>"><input type="text" id="sku_<?php echo $i;?>" name="product[<?php echo $i;?>][sku]" title="sku_<?php echo $i; ?>" class="input-text sku"></td>
+					<td class="itemqty_<?php echo $i;?>">
+					<input type="text" id="qty_<?php echo $i; ?>" name="product[<?php echo $i;?>][qty]" class="input-text qty"></td>
+					<td id="itemdata_<?php echo $i;?>">&nbsp;</td>
+					<td class="a-right"><a href="javascript:;" class="remove" id="remove_<?php echo $i;?>">x Remove</a></td>															
+				</tr>	
+			<?php endfor; ?>
+			</table>
+			<table width="100%">
+				<tr>
+					<td><a href="javascript:;" id="add_item">+ Add Item</a></td>
+					<td></td>
+				</tr>
+			</table>
+			<table width="100%">
+			<tr>
+				<td colspan="2" class="f-left"><span id="loader"></span></td>
+				<td colspan="2" class="a-right">
+				<button id="add_to_cart" onclick="submitQuickorderForm();" class="button btn-cart" title="Add to Cart" type="button"><span><span>Add to Cart</span></span></button>
+				</td>
+			</tr>
+			<tr>
+				<td><a href="javascript:;" id="quickorder_close">x Close</a></td>
+				<td></td>				
+			</tr>
+		    </table>
+	</div> 
+	<div class="Clear"></div>
+	<input type="hidden" name="quickorderAction" id="quickorderAction" value="<?php echo $this->getUrl('quickorder/index'); ?>"/>
+	</form>
+</div> 
+<?php endif; ?>
+<?php endif; ?>
